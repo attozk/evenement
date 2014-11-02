@@ -75,7 +75,7 @@ class EventEmitterRegexTest extends \PHPUnit_Framework_TestCase
         $this->assertSame(2, $listenerCalled);
     }
 
-    /*public function testOnceRegex()
+    public function testOnceRegex()
     {
         $listenerCalled = 0;
 
@@ -83,8 +83,7 @@ class EventEmitterRegexTest extends \PHPUnit_Framework_TestCase
             $listenerCalled++;
         });
 
-        print_r(array_keys($this->emitter->listeners));
-        die;
+        #print_r(array_keys($this->emitter->listeners));
 
         $this->assertSame(0, $listenerCalled);
 
@@ -94,15 +93,18 @@ class EventEmitterRegexTest extends \PHPUnit_Framework_TestCase
         $this->emitter->emit('foo5');
         $this->assertSame(1, $listenerCalled);
 
-        $this->emitter->emit('foo7');
+        $this->emitter->emit('foo5');
         $this->assertSame(1, $listenerCalled);
 
         $this->emitter->emit('bar');
         $this->assertSame(1, $listenerCalled);
 
-        $this->emitter->emit('bar');
-        $this->assertSame(1, $listenerCalled);
-    }*/
+        $this->emitter->emit('barA');
+        $this->assertSame(2, $listenerCalled);
+
+        $this->emitter->emit('barA');
+        $this->assertSame(2, $listenerCalled);
+    }
 
     public function testOnceWithArguments()
     {

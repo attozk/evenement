@@ -35,11 +35,22 @@ class EventEmitterRegex extends EventEmitter implements EventEmitterRegexInterfa
     {
         if (is_array($event)) {
             foreach ($event as $ev) {
-                parent::once($ev, $listener);
+                $this->_once($ev, $listener);
             }
         } else {
-            parent::once($event, $listener);
+            $this->_once($event, $listener);
         }
+    }
+
+    protected function _once($event, callable $listener)
+    {
+        $onceListener = function () use (&$onceListener, $event, $listener) {
+            parent::removeListener($event, $onceListener);
+
+            call_user_func_array($listener, func_get_args());
+        };
+
+        $this->on($event, $onceListener);
     }
 
      /**
