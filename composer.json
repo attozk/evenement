@@ -1,6 +1,6 @@
 {
-    "name": "attozk/evenement+",
-    "description": "Événement+ is a event dispatching library for PHP",
+    "name": "attozk/evenement-plus",
+    "description": "Événement-plus is an advanced event dispatching library for PHP",
     "keywords": ["event-dispatcher", "event-emitter"],
     "license": "MIT",
     "authors": [
