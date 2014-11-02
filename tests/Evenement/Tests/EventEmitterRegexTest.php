@@ -109,16 +109,16 @@ class EventEmitterRegexTest extends \PHPUnit_Framework_TestCase
         $capturedArgs = [];
 
         $this->emitter->once(['foo', 'bar'], function ($a, $b) use (&$capturedArgs) {
-            $capturedArgs = array($a, $b);
+            $capturedArgs = [$a, $b];
         });
 
-        $this->emitter->emit('foo', array('a', 'b'));
+        $this->emitter->emit('foo', ['a', 'b']);
 
-        $this->assertSame(array('a', 'b'), $capturedArgs);
+        $this->assertSame(['a', 'b'], $capturedArgs);
 
-        $this->emitter->emit('bar', array('a', 'b'));
+        $this->emitter->emit('bar', ['a', 'b']);
 
-        $this->assertSame(array('a', 'b'), $capturedArgs);
+        $this->assertSame(['a', 'b'], $capturedArgs);
     }
 
     public function testOnWithTwoArguments()
@@ -126,36 +126,36 @@ class EventEmitterRegexTest extends \PHPUnit_Framework_TestCase
         $capturedArgs = [];
 
         $this->emitter->on(['foo\d+', 'bar[A-Z]'], function ($a, $b) use (&$capturedArgs) {
-            $capturedArgs = array($a, $b);
+            $capturedArgs = [$a, $b];
         });
 
-        $this->emitter->emit('foo', array('a', 'b'));
-        $this->assertSame(array(), $capturedArgs);
+        $this->emitter->emit('foo', ['a', 'b']);
+        $this->assertSame([], $capturedArgs);
 
-        $this->emitter->emit('fooA', array('a', 'b'));
-        $this->assertSame(array(), $capturedArgs);
+        $this->emitter->emit('fooA', ['a', 'b']);
+        $this->assertSame([], $capturedArgs);
 
-        $this->emitter->emit('foo4', array('a', 'b'));
-        $this->assertSame(array('a', 'b'), $capturedArgs);
+        $this->emitter->emit('foo4', ['a', 'b']);
+        $this->assertSame(['a', 'b'], $capturedArgs);
 
-        $this->emitter->emit('foo45', array('c', 'd'));
-        $this->assertSame(array('c', 'd'), $capturedArgs);
+        $this->emitter->emit('foo45', ['c', 'd']);
+        $this->assertSame(['c', 'd'], $capturedArgs);
 
-        $capturedArgs = array();
-        $this->emitter->emit('bar', array('a', 'b'));
-        $this->assertSame(array(), $capturedArgs);
+        $capturedArgs = [];
+        $this->emitter->emit('bar', ['a', 'b']);
+        $this->assertSame([], $capturedArgs);
 
-        $this->emitter->emit('bar5', array('a', 'b'));
-        $this->assertSame(array(), $capturedArgs);
+        $this->emitter->emit('bar5', ['a', 'b']);
+        $this->assertSame([], $capturedArgs);
 
-        $this->emitter->emit('barA', array('e', 'f'));
-        $this->assertSame(array('e', 'f'), $capturedArgs);
+        $this->emitter->emit('barA', ['e', 'f']);
+        $this->assertSame(['e', 'f'], $capturedArgs);
 
-        $this->emitter->emit('barZ', array('g', 'h'));
-        $this->assertSame(array('g', 'h'), $capturedArgs);
+        $this->emitter->emit('barZ', ['g', 'h']);
+        $this->assertSame(['g', 'h'], $capturedArgs);
 
-        $this->emitter->emit('foo45', array('i', 'j'));
-        $this->assertSame(array('i', 'j'), $capturedArgs);
+        $this->emitter->emit('foo45', ['i', 'j']);
+        $this->assertSame(['i', 'j'], $capturedArgs);
     }
 
     public function testEmitWithoutArguments()
@@ -487,5 +487,41 @@ class EventEmitterRegexTest extends \PHPUnit_Framework_TestCase
         $this->assertSame(0, $listenersCalled);
         $this->emitter->emit('foo1');
         $this->assertSame(1, $listenersCalled);
+    }
+
+    public function testEmitDefaultCallback()
+    {
+        $listenersCalled = $listenersDefaultCalled = 0;
+
+        $this->emitter->on('foo\d', function () use (&$listenersCalled) {
+            $listenersCalled++;
+        });
+
+        $callback = function() use(&$listenersDefaultCalled) {
+            $listenersDefaultCalled++;
+        };
+
+        $this->assertSame(0, $listenersDefaultCalled);
+
+        $this->emitter->emit('bar', [], $callback);
+        $this->assertSame(1, $listenersDefaultCalled);
+    }
+
+    public function testEmitFirstMatchDefaultCallback()
+    {
+        $listenersCalled = $listenersDefaultCalled = 0;
+
+        $this->emitter->on('foo\d', function () use (&$listenersCalled) {
+            $listenersCalled++;
+        });
+
+        $callback = function() use(&$listenersDefaultCalled) {
+            $listenersDefaultCalled++;
+        };
+
+        $this->assertSame(0, $listenersDefaultCalled);
+
+        $this->emitter->emitFirstMatch('bar', [], $callback);
+        $this->assertSame(1, $listenersDefaultCalled);
     }
 }
