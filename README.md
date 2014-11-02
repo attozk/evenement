@@ -1,37 +1,19 @@
-# Événement
+# Événement++
 
-Événement is a very simple event dispatching library for PHP.
+This is a fork of [Événement](https://github.com/igorw/evenement) by [Igor Wiedler](https://igor.io) with advanced options.
 
-It has the same design goals as [Silex](http://silex-project.org) and
-[Pimple](http://pimple-project.org), to empower the user while staying concise
-and simple.
-
-It is very strongly inspired by the EventEmitter API found in
-[node.js](http://nodejs.org).
-
-[![Build Status](https://secure.travis-ci.org/igorw/evenement.png?branch=master)](http://travis-ci.org/igorw/evenement)
+[![Build Status](https://secure.travis-ci.org/attozk/evenement+.png?branch=master)](http://travis-ci.org/igorw/evenement)
 
 ## Fetch
 
-The recommended way to install Événement is [through composer](http://getcomposer.org).
+The recommended way to install Événement++ is [through composer](http://getcomposer.org).
 
 Just create a composer.json file for your project:
 
 ```JSON
 {
     "require": {
-        "evenement/evenement": "2.0.*"
-    }
-}
-```
-
-**Note:** The `2.0.*` version of Événement requires PHP 5.4. If you are
-using PHP 5.3, please use the `1.0.*` version:
-
-```JSON
-{
-    "require": {
-        "evenement/evenement": "1.0.*"
+        "attozk/evenement": "1.0.*"
     }
 }
 ```

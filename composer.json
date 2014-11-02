@@ -1,9 +1,13 @@
 {
-    "name": "evenement/evenement",
-    "description": "Événement is a very simple event dispatching library for PHP",
+    "name": "attozk/evenement+",
+    "description": "Événement+ is a event dispatching library for PHP",
     "keywords": ["event-dispatcher", "event-emitter"],
     "license": "MIT",
     "authors": [
+        {
+            "name": "Usman Malik",
+            "email": "attozk@khat.pk"
+        },
         {
             "name": "Igor Wiedler",
             "email": "igor@wiedler.ch"
@@ -15,11 +19,6 @@
     "autoload": {
         "psr-0": {
             "Evenement": "src"
-        }
-    },
-    "extra": {
-        "branch-alias": {
-            "dev-master": "2.0-dev"
         }
     }
 }
