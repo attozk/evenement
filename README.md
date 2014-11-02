@@ -2,7 +2,7 @@
 
 This is a fork of [Événement](https://github.com/igorw/evenement) by [Igor Wiedler](https://igor.io) with advanced options.
 
-[![Build Status](https://secure.travis-ci.org/attozk/evenement+.png?branch=master)](http://travis-ci.org/igorw/evenement)
+[![Build Status](https://secure.travis-ci.org/attozk/evenement-plus.png?branch=master)](http://travis-ci.org/attozk/evenement-plus)
 
 ## Fetch
 
