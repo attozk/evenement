@@ -149,17 +149,45 @@ $emitter->emit(['request.*.pk', 'request.*.domain.pk'], array($request), $fallba
 
 ## Benchmarking
 
-There is no doubt regex matching would be slower as the number of listeners goes up. Following shows benchmarks for 
-various scenarios.
+There is no doubt regex matching would be slower as the number of listeners goes up. 
 
-Same number of listeners and emits
+Following shows benchmarks for various scenarios.
 
-```
-```
 
 Fixed number of listeners and variable emits
 
 ```
+Time for 100 listeners and 10 emits
+EventEmitter:                            1     ms
+EventEmitterRegex:                       3     ms
+
+Time for 100 listeners and 100 emits
+EventEmitter:                            1     ms
+EventEmitterRegex:                       16    ms
+
+Time for 100 listeners and 1000 emits
+EventEmitter:                            1     ms
+EventEmitterRegex:                       98    ms
+
+Time for 100 listeners and 10000 emits
+EventEmitter:                            11    ms
+EventEmitterRegex:                       1001  ms
+```
+
+Same number of listeners and emits
+
+```
+Time for 10 listeners and emits
+EventEmitter:                            1     ms
+EventEmitterRegex:                       1     ms
+
+Time for 100 listeners and emits
+EventEmitter:                            1     ms
+EventEmitterRegex:                       11    ms
+
+Time for 1000 listeners and emits
+EventEmitter:                            7     ms
+EventEmitterRegex:                       1355  ms
 ```
 
 Tests
