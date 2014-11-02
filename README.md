@@ -147,6 +147,20 @@ $emitter->emit(['user.created', 'welcome'], array($user), $fallback);
 $emitter->emit(['request.*.pk', 'request.*.domain.pk'], array($request), $fallback);
 ```
 
+## Benchmarking
+
+There is no doubt regex matching would be slower as the number of listeners goes up. Following shows benchmarks for 
+various scenarios.
+
+Same number of listeners and emits
+
+```
+```
+
+Fixed number of listeners and variable emits
+
+```
+```
 
 Tests
 -----
